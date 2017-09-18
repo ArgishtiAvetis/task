@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container main_container" style="margin-bottom: 35px;">
+	<h4>Welcome, <b>{{ user.first_name }}</b>!</h4>
+	<h5>You can manage your profile from here. </h5>
+		<form style="margin-top: 20px;" class="col s12" action="" method="post" onsubmit="return handleEditUser()">
+			<input type="hidden" name="id" value="{{ user.id }}">
+			<div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">account_circle</i>
+		          <input id="first_name" name="first_name" type="text" class="validate" value="{{ user.first_name }}">
+		          <label for="first_name">First Name</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input id="last_name" name="last_name" type="text" class="validate" value="{{ user.last_name }}">
+		          <label for="last_name">Last Name</label>
+		        </div>
+		        <div class="input-field col s12">
+		          <i class="material-icons prefix">email</i>
+		          <input id="email" name="email" type="email" class="validate" value="{{ user.email }}">
+		          <label for="email" data-error="Invalid Email Address" data-success="Valid Email Address">Email</label>
+		        </div>
+		      </div>
+			  <div class="row">
+		        <div class="input-field col s12 m6">
+		          <i class="material-icons prefix">vpn_key</i>
+		          <input id="password" name="password" type="password" class="validate"> 
+		          <label for="password">Password (leave blank if no change)</label>
+		        </div>
+		       	<div class="input-field col s12 m6">
+		          <input id="password" name="password_r" type="password" class="validate">
+		          <label for="password">Repeat Password</label>
+		        </div>
+		      </div>
+			    <button style="float: right" type="submit" class="waves-effect waves-light btn">Edit Account</button>
+		  	</div>
+    	</form>
+</div>
+
+{% endblock %} 

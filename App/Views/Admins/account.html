@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container main_container">
+	<h3><b>{{ admin.first_name }}'s</b> Account</h3>
+		<h5>You can manage your profile from here. </h5>
+    	{% if errors %}
+    	<h4 style="color: red" >Invalid user data. Please fix these errors.</h4>
+    	<div class="col s12 ">
+    		<ul>
+			    {% for error in errors %}
+
+			    <li><b>&raquo; {{ error }}</b></li>
+
+			    {% endfor %}
+			</ul>
+    	</div>
+    	{% endif %}
+		<form style="margin-top: 20px;" class="col s12" action="" method="post" onsubmit="return handleEditUser()">
+			<input type="hidden" name="id" value="{{ admin.id }}">
+			<div class="row">
+		        <div class="input-field col s6">
+		          <i class="material-icons prefix">account_circle</i>
+		          <input id="first_name" name="first_name" type="text" class="validate" value="{{ admin.first_name }}">
+		          <label for="first_name">First Name</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input id="last_name" name="last_name" type="text" class="validate" value="{{ admin.last_name }}">
+		          <label for="last_name">Last Name</label>
+		        </div>
+		        <div class="input-field col s12">
+		          <i class="material-icons prefix">email</i>
+		          <input id="email" name="email" type="email" class="validate" value="{{ admin.email }}">
+		          <label for="email" data-error="Invalid Email Address" data-success="Valid Email Address">Email</label>
+		        </div>
+		      </div>
+			    <button style="float: right" type="submit" class="waves-effect waves-light btn">Edit Account</button>
+		  	</div>
+		  	<br style="clear: both" />
+    </form>
+</div>
+
+{% endblock %}

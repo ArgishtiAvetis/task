@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+   <div class="row red lighten-4" id="home-intro">
+    	<div class="container center-align" id="home-intro-content">
+    		<h1>User Management Plus</h1>
+    		<h3>Manage Your Users Like Never Before</h3>
+    		<a href="/admins/dashboard" class="waves-effect waves-light btn">Get Started</a>
+    	</div>
+    </div>
+
+    <div class="row">
+    	<div class="container">
+	    	<div class="col s12 m6" id="features"> 	
+	    		<h3>Why us?</h3>	
+				  <ul class="collapsible popout" data-collapsible="accordion">
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Feature One</div>
+				      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				    </li>
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">place</i>Feature Two</div>
+				      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				    </li>
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">whatshot</i>Feature Three</div>
+				      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				    </li>
+				  </ul>
+	    	</div>
+	    	<div class="col s12 m6">
+	    		<h3 class="left-align">Get Started</h3>
+	    		<div class="card home-get-started">
+	    			<span>Sign in or sign up to access the admin panel and manage users.</span>
+	    			<a href="/admins/login" class="waves-effect waves-light btn home-btn-get-started">Log In</a>
+	    			<a href="/admins/signup" class="waves-effect waves-light btn home-btn-get-started">Sign Up</a>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+
+
+
+{% endblock %}

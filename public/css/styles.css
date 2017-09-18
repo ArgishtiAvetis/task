@@ -1,0 +1,61 @@
+.main_container {
+	padding: 35px 0;
+}
+
+#home-intro {
+	/*background: url('https://cdn.pixabay.com/photo/2017/07/15/21/06/reception-2507752_960_720.jpg') fixed;*/
+	background: #ddd;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#home-intro-content {
+	padding: 55px 0;
+}
+
+#home-intro h1 {
+	font-size: 60px;
+	text-shadow: -2px 0 2px #000;
+	font-weight: 700;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+#home-intro h3 {
+	padding: 15px 0;
+	font-size: 30px;
+}
+
+#features h3 {
+	padding: 0px 20px;
+}
+
+.home-get-started {
+	padding: 20px 10px;
+}
+
+.home-btn-get-started {
+	width: 100%;
+	display: block;
+	margin: 10px 0;
+} 
+
+.delete-options {
+	padding: 20px 45px;
+}
+
+.btn-delete-options {
+	display: block;
+	margin: 10px 0;
+	width: 100%;
+	color: white;
+}
+
+.btn-add-user {
+	width: 100%;
+}
+
+i.material-icons {
+	margin: 0;
+}

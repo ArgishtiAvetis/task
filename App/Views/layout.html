@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <title>ManageMe</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <!-- Compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  	<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  
+    <nav>
+      	<div class="nav-wrapper container">
+        	<a href="/" class="brand-logo">ManageMe</a>
+        	<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        	<ul class="right hide-on-med-and-down">
+          		<li><a href="/">Home</a></li>
+          		<li><a href="#!">How It Works</a></li>
+              {% if admin %}
+              <li><a href="/admins/logout">Log out</a></li>
+              {% endif %}
+              {% if user %}
+              <li><a href="/account/users/logout">Log out</a></li>
+              {% endif %}
+              {% if not user and not admin %}
+              <li><a href="/account/users/login">User Login</a></li>
+              <li><a href="/account/users/signup">User Signup</a></li>
+              {% endif %}
+              <li><a href="/admins/dashboard" class="waves-effect waves-light btn">Admin Panel</a></li>
+        	</ul>
+	        <ul class="side-nav" id="mobile-demo">
+          		<li><a href="#!">Home</a></li>
+          		<li><a href="#!">How It Works</a></li>
+              {% if admin %}
+              <li><a href="/admins/logout">Log out</a></li>
+              {% else %}
+                {% if user %}
+                <li><a href="/users/logout">Log out</a></li>
+                {% endif %}
+              <li><a href="/account/users/login">User Login</a></li>
+              <li><a href="/account/users/signup">User Signup</a></li>
+              {% endif %}
+              <li><a href="/admins/dashboard" class="waves-effect waves-light btn">Admin Panel</a></li>
+	        </ul>
+      </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Footer Content</h5>
+            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2014 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+    </footer>
+
+  	<!-- Compiled and minified JavaScript -->
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  	<script src="/js/main.js"></script>
+</body>
+</html>

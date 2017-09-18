@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container main_container">
+	<h1>Login as an Admin</h1>
+	{% if errors %}
+	<h4 style="color: red" >Invalid user data. Please fix these errors.</h4>
+	<div class="col s12 ">
+		<ul>
+		    {% for error in errors %}
+
+		    <li><b>&raquo; {{ error }}</b></li>
+
+		    {% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+	<form action="" method="post">
+		<input type="text" name="email" placeholder="email" /><br />
+		<input type="password" name="password" placeholder="password" /><br />
+		<button style="float: left" type="submit" class="waves-effect waves-light btn">Log in</button>
+	</form>
+	<span style="float: right">Don't have an account? <a href="/admins/signup">Sign up</a></span>
+	<br style="clear: both" />
+</div> 
+
+{% endblock %}

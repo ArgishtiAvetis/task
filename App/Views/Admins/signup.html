@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container main_container">
+	<h1>Signup as an Admin</h1>
+
+<form class="col s12" action="" method="post" onsubmit="return handleAddUser()">
+  <div class="row">
+    <div class="input-field col s6">
+      <i class="material-icons prefix">account_circle</i>
+      <input id="first_name" name="first_name" type="text" class="validate">
+      <label for="first_name">First Name</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="last_name" name="last_name" type="text" class="validate">
+      <label for="last_name">Last Name</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">email</i>
+      <input id="email" name="email" type="email" class="validate">
+      <label for="email" data-error="Invalid Email Address" data-success="Valid Email Address">Email</label>
+    </div>
+  </div>
+   <div class="row">
+    <div class="input-field col s12 m6">
+      <i class="material-icons prefix">vpn_key</i>
+      <input id="password" name="password" type="password" class="validate">
+      <label for="password">Password</label>
+    </div>
+   	<div class="input-field col s12 m6">
+      <input id="password" name="password_r" type="password" class="validate">
+      <label for="password">Repeat Password</label>
+    </div>
+  </div>
+  <!-- Switch -->
+
+  <button type="submit" class="waves-effect waves-light btn">Sign Up</button>
+</div>
+</form>
+
+{% endblock %}

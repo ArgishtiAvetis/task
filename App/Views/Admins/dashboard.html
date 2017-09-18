@@ -1,0 +1,193 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>{{ user }}</h1>
+    <div class="row" style="margin: 35px 0; padding: 10px 5%;">
+    	{% if errors %}
+    	<h4 style="color: red" >Invalid user data. Please fix these errors.</h4>
+    	<div class="col s12 ">
+    		<ul>
+			    {% for error in errors %}
+
+			    <li><b>&raquo; {{ error }}</b></li>
+
+			    {% endfor %}
+			</ul>
+    	</div>
+    	{% endif %}
+    	<style>
+    	@media screen and (max-width: 1300px) {
+    		.user-table {
+    			overflow-x: scroll;
+    		}
+    	}
+    	</style>
+    	<div class="col s12 l10 user-table">	
+		    <table class="highlight">
+		        <thead>
+		          	<tr>
+		             	<th>First Name</th>
+		             	<th>Last Name</th>
+		             	<th>Email</th>
+		             	<th>Registered</th>
+		             	<th>Last Updated</th>
+		             	<th>Status</th>
+		             	<th>Actions</th>
+		          	</tr>
+		        </thead>
+	          	<tbody>
+	          		{% for user in users %}
+					    <tr>
+					    	<td>{{ user.first_name }}</td>
+					    	<td>{{ user.last_name }}</td>
+					    	<td>{{ user.email }}</td>
+					    	<td>{{ user.created }}</td>
+					    	<td>{{ user.updated }}</td>
+					    	<td {% if user.status == 'active' %}
+					    			style="color: green" 
+					    		{% else %}
+					    			style="color: red" 
+					    		{% endif %}
+					    		>
+					    		{{ user.status }}
+					    	</td>
+					    	<td>
+					    		<a class="waves-effect waves-light btn green modal-trigger" href="#edit_{{ user.id }}">Edit</a>
+					    		<a class="waves-effect waves-light btn red modal-trigger" href="#modal_{{ user.id }}">Delete</a>
+					    	</td>
+					    </tr>
+					     <div id="edit_{{ user.id }}" class="modal">
+					     	<div class="modal-content">
+					     		<form class="col s12" action="/admins/edit" method="post" onsubmit="return handleEditUser()">
+					     			<input type="hidden" name="id" value="{{ user.id }}">
+									<div class="row">
+								        <div class="input-field col s6">
+								          <i class="material-icons prefix">account_circle</i>
+								          <input id="first_name" name="first_name" type="text" class="validate" value="{{ user.first_name }}">
+								          <label for="first_name">First Name</label>
+								        </div>
+								        <div class="input-field col s6">
+								          <input id="last_name" name="last_name" type="text" class="validate" value="{{ user.last_name }}">
+								          <label for="last_name">Last Name</label>
+								        </div>
+								        <div class="input-field col s12">
+								          <i class="material-icons prefix">email</i>
+								          <input id="email" name="email" type="email" class="validate" value="{{ user.email }}">
+								          <label for="email" data-error="Invalid Email Address" data-success="Valid Email Address">Email</label>
+								        </div>
+								      </div>
+								      <div class="row">
+								      	<div class="col s12">
+											
+											<i class="material-icons prefix">lock</i>
+												
+												<input class="" name="status" type="radio" id="status-1" value="active" checked />
+												<label for="status-1">Active</label>
+
+												<input class="" name="status" type="radio" id="status-2" value="deactivated" />
+												<label for="status-2">Dectivated</label>							    
+								      	</div>
+								      </div>
+									    
+<!-- 								       <div class="row">
+								        <div class="input-field col s12 m6">
+								          <i class="material-icons prefix">vpn_key</i>
+								          <input id="password" name="password" type="password" class="validate"> 
+								          <label for="password">Password (leave blank if no change)</label>
+								        </div>
+								       	<div class="input-field col s12 m6">
+								          <input id="password" name="password_r" type="password" class="validate">
+								          <label for="password">Repeat Password</label>
+								        </div>
+								      </div> -->
+								  	</div>
+							    <div class="modal-footer">
+							      <button style="float: right" type="submit" class="waves-effect waves-light btn">Edit User</button>
+							      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+							    </div>
+							    </form>
+							    </div>
+
+					     	</div>
+					     </div>
+					     <!-- Modal Structure -->
+						  <div id="modal_{{ user.id }}" class="modal">
+						    <div class="modal-content">
+						      <!-- <h4>Modal Header</h4> -->
+						      <h4 class="center-align">Are you sure you want to delete user <b>"{{ user.first_name }} {{ user.last_name }}"</b>?</h4>
+						    </div>
+						    <div class="delete-options center-align">
+						    	<form action="/account/users/delete" method="post">
+						    		<input type="hidden" name="id" value="{{ user.id }}" />
+						    		<input type="hidden" name="soft" value="0">
+						    		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat red darken-2 btn-delete-options">Yes, delete permanently 
+						    		</button>
+						    	</form>
+						    	<form action="/account/users/delete" method="post">
+						    		<input type="hidden" name="id" value="{{ user.id }}" />
+						    		<input type="hidden" name="soft" value="1">
+						    		<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat orange accent-4 btn-delete-options">Yes, but delete softly (temporarily)</button>
+						    	</form>
+						      	<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat light-green darken-3 btn-delete-options">No</a>
+						    </div>
+						  </div>
+					{% endfor %}
+	          	</tbody>
+	        </table>	
+    	</div>
+    	<div class="col s12 l2">
+			<button class="btn waves-effect waves-light btn-add-user modal-trigger" type="submit" name="action" href="#add-user"><i class="material-icons left">add</i>Add User
+			    
+			</button>
+			<ul class="collection center-align">
+		      	<a href="/admins/dashboard" class="collection-item"><li>Dashboard</li></a>
+		      	<a href="/admins/account" class="collection-item"><li>My Account</li></a>
+		      	<a href="#!" class="collection-item"><li>Technical Support</li></a>
+		      	<a href="/admins/logout" class="collection-item"><li>Log out</li></a>
+		    </ul>
+
+    	</div>
+    </div>
+
+	  <!-- Add User Modal Structure -->
+	  <div id="add-user" class="modal modal-fixed-footer">
+	    <div class="modal-content">
+	      	<h4>Add a new User</h4>
+			<div class="row">
+			    <form class="col s12" action="" method="post" onsubmit="return handleAddUser()">
+			      <div class="row">
+			        <div class="input-field col s6">
+			          <i class="material-icons prefix">account_circle</i>
+			          <input id="first" name="first" type="text" class="validate">
+			          <label for="first">First Name</label>
+			        </div>
+			        <div class="input-field col s6">
+			          <input id="last" name="last" type="text" class="validate">
+			          <label for="last">Last Name</label>
+			        </div>
+			        <div class="input-field col s12">
+			          <i class="material-icons prefix">email</i>
+			          <input id="email_address" name="email_address" type="email" class="validate">
+			          <label for="email_address" data-error="Invalid Email Address" data-success="Valid Email Address">Email</label>
+			        </div>
+			      </div>
+			       <div class="row">
+			        <div class="input-field col s12 m6">
+			          <i class="material-icons prefix">vpn_key</i>
+			          <input id="password" name="password" type="password" class="validate">
+			          <label for="password">Password</label>
+			        </div>
+			       	<div class="input-field col s12 m6">
+			          <input id="password" name="password_r" type="password" class="validate">
+			          <label for="password">Repeat Password</label>
+			        </div>
+			      </div>
+		  	</div>
+	    </div>
+	    <div class="modal-footer">
+	      <button style="float: right" type="submit" class="waves-effect waves-light btn">Add User</button>
+	      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+	    </div>
+	    </form>
+	  </div>
+{% endblock %}
