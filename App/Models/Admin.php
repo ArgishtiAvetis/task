@@ -47,9 +47,16 @@ class Admin extends Model {
 		$first_name = $data["first_name"];
 		$last_name = $data["last_name"];
 		$email = $data["email"];
+		$password = $data["password"];
+
+		if(strlen($password) !== 0) {
+			$password_str = ", password_hash = '" . password_hash($password, PASSWORD_DEFAULT) . "' ";  
+		} else {
+			$password_str = " ";
+		}
 
 		try {
-			$stmt = $db->prepare("UPDATE admins SET first_name = '$first_name', last_name = '$last_name', email = '$email' WHERE id='$id'");
+			$stmt = $db->prepare("UPDATE admins SET first_name = '$first_name', last_name = '$last_name', email = '$email' ".$password_str." WHERE id='$id'");
 
 			$stmt->execute();
 		} catch(PDOException $e) {

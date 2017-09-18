@@ -90,6 +90,7 @@ class User extends Model {
 		$updated = date("m/d/Y @ g:i A");
 
 		$password = $data["password"];
+		$status = $data["status"];
 
 		if(strlen($password) !== 0) {
 			$password_str = " password_hash = '" . password_hash($password, PASSWORD_DEFAULT) . "', ";  
@@ -97,8 +98,14 @@ class User extends Model {
 			$password_str = " ";
 		}
 
+		if(strlen($status) !== 0) {
+			$status_str = ", status = '".$status."' ";
+		} else {
+			$status_str = "";
+		}
+
 		try {
-			$stmt = $db->prepare("UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email',".$password_str." updated = '$updated' WHERE id='$id'");
+			$stmt = $db->prepare("UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email',".$password_str." updated = '$updated' ".$status_str." WHERE id='$id'");
 
 			$stmt->execute();
 		} catch(PDOException $e) {

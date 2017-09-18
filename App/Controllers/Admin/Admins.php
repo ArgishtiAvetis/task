@@ -128,19 +128,19 @@ class Admins extends Controller {
 		$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 		$status = filter_var(trim($_POST['status']), FILTER_SANITIZE_STRING);
 
-		$password = trim($_POST['password']);
+		//$password = trim($_POST['password']);
 
 		$errors = [];
 		
-		if(!empty($password)) {
-			// hash the password
-			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		// if(!empty($password)) {
+		// 	// hash the password
+		// 	$password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-			if ($password !== trim($_POST['password_r'])) {
-				$errors[] = "Passwords don't match";
-			}
+		// 	if ($password !== trim($_POST['password_r'])) {
+		// 		$errors[] = "Passwords don't match";
+		// 	}
 
-		}
+		// }
 
 
 		if (strlen($first_name) === 0) {
@@ -174,12 +174,13 @@ class Admins extends Controller {
 				"first_name" => $first_name,
 				"last_name" => $last_name,
 				"email" => $email,
-				"status" => $status
+				"status" => $status,
+				"password" => ""
 			];
 
-			if(!empty($password)) {
-				$data["password_hash"] = $password_hash;
-			}
+			// if(!empty($password)) {
+			// 	$data["password_hash"] = $password_hash;
+			// }
 
 			// edit the User
 			User::edit($data);
@@ -220,8 +221,19 @@ class Admins extends Controller {
 			$first_name = filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
 			$last_name = filter_var(trim($_POST['last_name']), FILTER_SANITIZE_STRING);
 			$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-
+			
+			$password = trim($_POST['password']);
+			
 			$errors = [];
+
+			if(!empty($password)) {
+				// hash the password
+				// check if two passwords match
+				if ($password !== trim($_POST['password_r'])) {
+					$errors[] = "Passwords don't match";
+				}
+
+			}
 
 			if (strlen($first_name) === 0) {
 				$errors[] = "First Name is required";
@@ -249,6 +261,7 @@ class Admins extends Controller {
 					"first_name" => $first_name,
 					"last_name" => $last_name,
 					"email" => $email,
+					"password" => $password
 				];	
 
 				Admin::edit($data);
